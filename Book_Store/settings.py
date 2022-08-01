@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'user',
     'book',
+    'cart',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

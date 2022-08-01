@@ -80,3 +80,24 @@ class BookAPIView(GenericAPIView):
             return Response({'success': False,
                              'message': "Something went wrong",
                              'data': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    @verify_token
+    def delete(self, request, pk):
+        try:
+            if not request.user.is_admin:
+                return Response({'success': False,
+                                 'message': "Only admin can perform this action"}, status=status.HTTP_404_NOT_FOUND)
+            book = Book.objects.get(id=pk)
+            if not book:
+                return Response({'success': False,
+                                 'message': "Book Not Found"}, status=status.HTTP_404_NOT_FOUND)
+            book.delete()
+            return Response({'success': True,
+                             'message': "Book is successfully deleted",
+                             'data': book.data}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'success': False,
+                             'message': "Something went wrong",
+                             'data': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
