@@ -90,7 +90,6 @@ class UserLoginView(APIView):
             user = authenticate(**serializer.data)
             if user is not None:
                 token = JWT.encode({"user_id": user.id})
-                print(token)
                 # logger.info("User is successfully logged in")
                 return Response({'success': True, 'message': 'Login Successfully ',
                                  'data': {'token': token}}, status=status.HTTP_200_OK)
