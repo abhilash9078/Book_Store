@@ -36,9 +36,8 @@ class TestLoginRegistrationModel(TestCase):
     test class for testing User model
     """
     def test_should_create_user(self):
-        user = User.objects.create_user(username='abhilash', email='abhilash@gmail.com', mobile_no=123456678)
-        user.set_password("12345678")
-        user.save()
+        user = User.objects.create_user(username='abhilash', email='abhilash@gmail.com', mobile_no=123456678,
+                                        password='12345678')
         self.assertEqual(str(user), 'abhilash@gmail.com')
 
 

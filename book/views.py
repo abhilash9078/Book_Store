@@ -45,7 +45,6 @@ class BookAPIView(GenericAPIView):
             validated_data = book_validator(data)
             if validated_data:
                 book = Book.objects.get(id=data.get('id'))
-                print(book)
                 book.quantity_now = book.quantity_now + int(data.get('original_quantity'))
                 book.save()
                 return Response({'success': True,
