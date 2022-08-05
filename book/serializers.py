@@ -12,5 +12,9 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ['id', 'book_name', 'author', 'price', 'original_quantity', 'description']
-        required_field = ['id', 'book_name', 'author', 'price', 'original_quantity']
+        required_field = ['book_name', 'author', 'price', 'original_quantity']
+
+    def create(self, validated_data):
+        validated_data.update({'quantity_now': validated_data.get('original_quantity')})
+        return self.Meta.model.objects.create(**validated_data)
 

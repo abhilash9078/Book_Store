@@ -12,4 +12,5 @@ class Cart(models.Model):
     quantity = models.IntegerField()
 
     def __str__(self):
-        return str(self.id)
+        return self.total_price
+
