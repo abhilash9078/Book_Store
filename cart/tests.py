@@ -29,7 +29,7 @@ class TestBookAppURL(TestCase):
         """
         test function for testing get all cart url
         """
-        path = reverse('update_cart_item')
+        path = reverse('update_cart_item', kwargs={'id': 1})
         print(resolve(path).view_name, "updated value")
         assert 1 == 1
 

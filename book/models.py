@@ -10,7 +10,7 @@ class Book(models.Model):
     description = models.TextField(max_length=500)
     quantity_now = models.IntegerField()
     created_dt = models.DateTimeField(auto_now=True)
-    updated_dt = models.DateTimeField(default=datetime.datetime.now)
+    updated_dt = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.book_name
