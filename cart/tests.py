@@ -31,14 +31,7 @@ class TestBookAppURL(TestCase):
         """
         path = reverse('update_cart_item', kwargs={'id': 1})
         print(resolve(path).view_name, "updated value")
-        assert 1 == 1
-
-    # def test_delete_cart_url(self):
-    #     """
-    #     test function for testing get all cart url
-    #     """
-    #     path = reverse('delete_cart_item')
-    #     assert resolve(path).view_name == 'delete_cart_item/2'
+        assert resolve(path).view_name == 'update_cart_item'
 
 
 class TestBookView(TestCase):

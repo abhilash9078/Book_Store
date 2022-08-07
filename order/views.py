@@ -10,8 +10,14 @@ import uuid
 
 
 class CheckoutAPIView(APIView):
+    """
+    Class for Order API for order
+    """
     @verify_token
     def post(self, request, cid):
+        """
+        function for place order api
+        """
         try:
             user = User.objects.get(id=request.user.id)
             cart = Cart.objects.get(id=cid)
