@@ -33,7 +33,6 @@ class CheckoutAPIView(APIView):
                                          quantity=cart.quantity,
                                          total_price=cart.total_price)
             order.save()
-            book.save()
             cart.delete()
             return Response({'success': True,
                              'message': "Successfully Placed Order",

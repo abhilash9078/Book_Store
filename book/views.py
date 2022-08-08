@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
@@ -12,9 +13,13 @@ class GetAllBookListView(GenericAPIView):
         try:
             book_list = Book.objects.order_by('id')
             serializer = AllBookListSerializer(book_list, many=True)
+            paginator = Paginator(book_list, 5)
+            page_number = request.data.get('page')
+            page_obj = paginator.get_page(page_number)
             return Response({'success': True,
                              'message': "All Book",
-                             'data': serializer.data}, status=status.HTTP_200_OK)
+                             'data': serializer.data,
+                             'page': str(page_obj)}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'success': False,
                              'message': "Something went Wrong",
