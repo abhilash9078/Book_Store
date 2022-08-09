@@ -3,11 +3,14 @@ from rest_framework.response import Response
 from rest_framework import status
 import logging
 from rest_framework.views import APIView
-from user.serializers import UserLoginSerializer, UserProfileSerializer, UserRegistrationSerializer, \
-    UserProfileVerificationSerializer, UserProfileVerificationEmailSerializer
+from user.serializers import (UserLoginSerializer,
+                              UserProfileSerializer,
+                              UserRegistrationSerializer,
+                              UserProfileVerificationSerializer,
+                              UserProfileVerificationEmailSerializer)
 from django.contrib.auth import authenticate
 from user.renderers import UserRenderer
-from rest_framework_simplejwt.tokens import RefreshToken
+# from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from user.token import JWT
 
@@ -15,15 +18,15 @@ from user.token import JWT
 logger = logging.getLogger('django')
 
 
-def get_tokens_for_user(user):
-    """
-    function for creating token for user
-    """
-    refresh = RefreshToken.for_user(user)
-    return {
-        'refresh': str(refresh),
-        'access': str(refresh.access_token),
-    }
+# def get_tokens_for_user(user):
+#     """
+#     function for creating token for user
+#     """
+#     refresh = RefreshToken.for_user(user)
+#     return {
+#         'refresh': str(refresh),
+#         'access': str(refresh.access_token),
+#     }
 
 
 class UserRegistrationView(APIView):

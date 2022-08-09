@@ -1,0 +1,1 @@
+celery -A Book_Store worker -l info --pool=solo

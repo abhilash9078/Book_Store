@@ -1,16 +1,8 @@
 from django.core.mail import EmailMessage
 from celery import shared_task
-from time import sleep
-
-
-@shared_task
-def sleepy(duration):
-    sleep(duration)
-    return None
 
 
 class Util:
-
     @staticmethod
     @shared_task
     def send_email(data):
@@ -21,4 +13,6 @@ class Util:
             to=[data['to_email']]
         )
         email.send()
+
+
 

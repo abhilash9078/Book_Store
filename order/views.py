@@ -4,7 +4,7 @@ from cart.models import Cart
 from user.models import User
 from book.models import Book
 from .models import Order
-from .serializers import CheckoutSerializer
+from .serializers import CheckoutSerializer, AddRatingsToBookSerializer
 from user.authentication import verify_token
 import uuid
 
@@ -13,6 +13,7 @@ class CheckoutAPIView(APIView):
     """
     Class for Order API for order
     """
+
     @verify_token
     def post(self, request, cid):
         """
@@ -37,6 +38,32 @@ class CheckoutAPIView(APIView):
             return Response({'success': True,
                              'message': "Successfully Placed Order",
                              'data': f"Order Address- {address}, Order Id- {order_id}"}, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            Response({'success': False,
+                      'message': "Something went wrong",
+                      'data': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class AddRatingsAPIView(APIView):
+    """
+    Class for Add Rating API for order
+    """
+
+    @verify_token
+    def post(self, request, bid):
+        """
+        function for add rating api
+        """
+        try:
+            book = Book.objects.get(id=bid)
+            data = request.data
+            serializer = AddRatingsToBookSerializer(data)
+            book.ratings = data.get('ratings')
+            book.save()
+            return Response({'success': True,
+                             'message': "Successfully added ratings",
+                             'data': serializer.data}, status=status.HTTP_201_CREATED)
+
         except Exception as e:
             Response({'success': False,
                       'message': "Something went wrong",

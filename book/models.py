@@ -9,6 +9,7 @@ class Book(models.Model):
     original_quantity = models.IntegerField()
     description = models.TextField(max_length=500)
     quantity_now = models.IntegerField()
+    ratings = models.IntegerField(default=4)
     created_dt = models.DateTimeField(auto_now=True)
     updated_dt = models.DateTimeField(auto_now_add=True)
 
