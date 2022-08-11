@@ -55,16 +55,17 @@ class AddRatingsAPIView(APIView):
         function for add rating api
         """
         try:
-            book = Book.objects.get(id=bid)
-            data = request.data
-            serializer = AddRatingsToBookSerializer(data)
-            book.ratings = data.get('ratings')
-            book.save()
+            query = f'SELECT * FROM book_book WHERE id={bid}'
+            for queryset in Book.objects.raw(query):
+                print(queryset)
+                print(queryset.id)
+                data = request.data
+                queryset.ratings = data.get('ratings')
+                queryset.save()
             return Response({'success': True,
-                             'message': "Successfully added ratings",
-                             'data': serializer.data}, status=status.HTTP_201_CREATED)
+                             'message': "Successfully added ratings"}, status=status.HTTP_201_CREATED)
 
         except Exception as e:
-            Response({'success': False,
-                      'message': "Something went wrong",
-                      'data': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'success': False,
+                             'message': "Something went wrong",
+                             'data': str(e)}, status=status.HTTP_400_BAD_REQUEST)
