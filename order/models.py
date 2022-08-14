@@ -11,6 +11,8 @@ class Order(models.Model):
     order_id = models.CharField(max_length=50)
     total_price = models.IntegerField(null=False)
     date_ordered = models.DateTimeField(auto_now_add=True)
+    # status = models.CharField(choices=)
 
     def __str__(self):
-        return self.book_id
+        return str(self.id)
+

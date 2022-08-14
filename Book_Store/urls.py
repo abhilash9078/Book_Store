@@ -18,6 +18,7 @@ from django.urls import path, include
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
+from user import views
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -34,6 +35,9 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.home, name='home'),
+    path('login', views.login, name='login_w'),
+    path('register', views.register, name='register_w'),
     path('user/', include('user.urls')),
     path('book/', include('book.urls')),
     path('cart/', include('cart.urls')),

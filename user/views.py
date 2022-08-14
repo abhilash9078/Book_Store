@@ -1,8 +1,11 @@
 from django.conf import settings
+from django.shortcuts import render, redirect
 from rest_framework.response import Response
 from rest_framework import status
 import logging
 from rest_framework.views import APIView
+
+from user.models import User
 from user.serializers import (UserLoginSerializer,
                               UserProfileSerializer,
                               UserRegistrationSerializer,
@@ -18,15 +21,36 @@ from user.token import JWT
 logger = logging.getLogger('django')
 
 
-# def get_tokens_for_user(user):
-#     """
-#     function for creating token for user
-#     """
-#     refresh = RefreshToken.for_user(user)
-#     return {
-#         'refresh': str(refresh),
-#         'access': str(refresh.access_token),
-#     }
+def home(request):
+    return render(request, 'home.html')
+
+
+def login(request):
+    if request.method == "POST":
+        email = request.POST["email"]
+        password = request.POST["password"]
+        user = authenticate(email, password)
+        if user is not None:
+            return render(request, 'profile.html')
+    return render(request, 'login.html')
+
+
+def register(request):
+    if request.method == "POST":
+        user = User()
+        user.email = request.POST["email"]
+        user.username = request.POST["username"]
+        user.mobile_no = request.POST["number"]
+        user.password = request.POST["password"]
+        user.password2 = request.POST["password2"]
+        if user.password != user.password2:
+            return redirect('register')
+        elif user.email == "" or user.username == "" or user.mobile_no == "":
+            return redirect('register')
+        else:
+            user.save()
+            return render(request, 'login.html')
+    return render(request, 'register.html')
 
 
 class UserRegistrationView(APIView):
