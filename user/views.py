@@ -29,8 +29,8 @@ def login(request):
     if request.method == "POST":
         email = request.POST["email"]
         password = request.POST["password"]
-        user = authenticate(email, password)
-        if user is not None:
+        user = User.objects.get(email=email)
+        if user.password == password:
             return render(request, 'profile.html')
     return render(request, 'login.html')
 
