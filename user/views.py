@@ -29,27 +29,27 @@ def login(request):
     if request.method == "POST":
         email = request.POST["email"]
         password = request.POST["password"]
-        user = User.objects.get(email=email)
-        if user.password == password:
+        user = authenticate(email=email, password=password)
+        print(user)
+        if user:
             return render(request, 'profile.html')
     return render(request, 'login.html')
 
 
 def register(request):
     if request.method == "POST":
-        user = User()
-        user.email = request.POST["email"]
-        user.username = request.POST["username"]
-        user.mobile_no = request.POST["number"]
-        user.password = request.POST["password"]
-        user.password2 = request.POST["password2"]
-        if user.password != user.password2:
+
+        email = request.POST["email"]
+        username = request.POST["username"]
+        mobile_no = request.POST["mobile_no"]
+        password = request.POST["password"]
+        password2 = request.POST["password2"]
+        if password != password2:
             return redirect('register')
-        elif user.email == "" or user.username == "" or user.mobile_no == "":
+        elif email == "" or username == "" or mobile_no == "":
             return redirect('register')
-        else:
-            user.save()
-            return render(request, 'login.html')
+        User.objects.create_user(**request.POST)
+        return render(request, 'login.html')
     return render(request, 'register.html')
 
 
