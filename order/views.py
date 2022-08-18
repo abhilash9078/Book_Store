@@ -1,10 +1,9 @@
 from rest_framework import status
 from rest_framework.views import APIView, Response
-from cart.models import Cart
 from user.models import User
 from book.models import Book
-from .models import Order
-from .serializers import CheckoutSerializer, AddRatingsToBookSerializer
+from .models import Order, OrderStatus
+from .serializers import CheckoutSerializer
 from user.authentication import verify_token
 import uuid
 
@@ -21,7 +20,7 @@ class CheckoutAPIView(APIView):
         """
         try:
             user = User.objects.get(id=request.user.id)
-            cart = Cart.objects.get(id=cid)
+            cart = Order.objects.get(id=cid)
             book = Book.objects.get(book_name=cart.book_id)
             data = request.data
             serializer = CheckoutSerializer(data)
@@ -33,6 +32,7 @@ class CheckoutAPIView(APIView):
                                          shipping_address=address,
                                          quantity=cart.quantity,
                                          total_price=cart.total_price)
+            order.status = OrderStatus.o.value
             order.save()
             cart.delete()
             return Response({'success': True,

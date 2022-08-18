@@ -9,7 +9,3 @@ class CheckoutSerializer(serializers.ModelSerializer):
         fields = ['shipping_address']
 
 
-class AddRatingsToBookSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Book
-        fields = ['ratings']

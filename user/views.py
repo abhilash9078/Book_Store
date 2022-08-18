@@ -48,7 +48,8 @@ def register(request):
             return redirect('register')
         elif email == "" or username == "" or mobile_no == "":
             return redirect('register')
-        User.objects.create_user(**request.POST)
+        User.objects.create_user(email=email, username=username, mobile_no=mobile_no, password=password,
+                                 password2=password2)
         return render(request, 'login.html')
     return render(request, 'register.html')
 
