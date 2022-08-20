@@ -11,7 +11,7 @@ class CartSerializer(serializers.ModelSerializer):
 class GetCartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = ['id', 'book_id', 'quantity', 'total_price']
 
 
 class EditCartSerializer(serializers.ModelSerializer):

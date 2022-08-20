@@ -3,9 +3,8 @@ from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
 from book.models import Book
 from order.models import Order, OrderStatus
-from wishlist.serializers import WishlistSerializer, EditWishlistSerializer, GetWishlistSerializer
+from wishlist.serializers import WishlistSerializer, GetWishlistSerializer
 from user.authentication import verify_token
-from drf_yasg.utils import swagger_auto_schema
 
 
 class WishlistAPIView(GenericAPIView):
@@ -20,10 +19,12 @@ class WishlistAPIView(GenericAPIView):
                 return Response({'success': False,
                                  'message': "Book is not found with this id",
                                  'data': book.id}, status=status.HTTP_404_NOT_FOUND)
-            total_amt = book.price * new_book.get('quantity')
+            total_amt = book.price
             wishlist = Order.objects.create(
                 user_id=request.user,
                 book_id=book,
+                quantity=1,
+                total_price=total_amt
             )
             wishlist.status = OrderStatus.w.value
             wishlist.save()

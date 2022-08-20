@@ -11,10 +11,5 @@ class WishlistSerializer(serializers.ModelSerializer):
 class GetWishlistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = ['id', 'book_id', 'total_price']
 
-
-class EditWishlistSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Order
-        fields = ['quantity']
