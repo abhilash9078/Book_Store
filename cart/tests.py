@@ -6,7 +6,7 @@ from rest_framework import status
 from book.models import Book
 
 
-class TestBookAppURL(TestCase):
+class TestCartAppURL(TestCase):
     """
     test class for testing Cart url
     """
@@ -34,9 +34,9 @@ class TestBookAppURL(TestCase):
         assert resolve(path).view_name == 'update_cart_item'
 
 
-class TestBookView(TestCase):
+class TestCartView(TestCase):
     """
-    Test class for Book CRUD operation view
+    Test class for cart CRUD operation view
     """
 
     def test_view_cart_correct_data(self):
