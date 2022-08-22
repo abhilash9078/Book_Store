@@ -41,6 +41,12 @@ class UserManager(BaseUserManager):
         return user
 
 
+class Details(models.Model):
+    method = models.CharField(max_length=50)
+    url = models.CharField(max_length=50)
+    created_dt = models.DateTimeField(auto_now_add=True)
+
+
 #  Custom User Model
 class User(AbstractBaseUser):
     email = models.EmailField(
