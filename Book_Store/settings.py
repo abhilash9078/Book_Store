@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'order',
     'wishlist',
+    'rawquery_cart',
 ]
 
 MIDDLEWARE = [
@@ -93,6 +94,12 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#        'default': {
+#            'ENGINE': 'djongo',
+#            'NAME': 'Book_Store',
+#        }
+#    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

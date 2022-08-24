@@ -39,9 +39,9 @@ class CheckoutAPIView(APIView):
                              'message': "Successfully Placed Order",
                              'data': f"Order Address- {address}, Order Id- {order_id}"}, status=status.HTTP_201_CREATED)
         except Exception as e:
-            Response({'success': False,
-                      'message': "Something went wrong",
-                      'data': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'success': False,
+                             'message': "Something went wrong",
+                             'data': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class AddRatingsAPIView(APIView):

@@ -23,5 +23,6 @@ def verify_token(func):
                              'message': "Only verified user can perform this action"},
                             status=status.HTTP_404_NOT_FOUND)
         request.user = user
+        request.data["user_id"] = user.id
         return func(*args, **kwargs)
     return wrapper
