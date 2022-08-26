@@ -7,12 +7,18 @@ from user.models import User
 
 
 class OrderStatus(models.TextChoices):
+    """
+    class for choice field
+    """
     c = 'cart'
     o = 'order'
     w = 'wishlist'
 
 
 class Order(models.Model):
+    """
+    model class for order, cart and wishlist app
+    """
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     book_id = models.ForeignKey(Book, on_delete=models.PROTECT)
     quantity = models.PositiveIntegerField()
@@ -28,6 +34,9 @@ class Order(models.Model):
 
 @receiver(pre_save, sender=Order)
 def update_quantity(sender, instance, **kwargs):
+    """
+    signal class
+    """
     book = instance.book_id
     instance.total_price = book.price * instance.quantity
     if instance.quantity > book.quantity_now:

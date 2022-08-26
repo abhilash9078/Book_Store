@@ -6,6 +6,9 @@ from .models import Order, OrderStatus
 from .serializers import CheckoutSerializer
 from user.authentication import verify_token
 import uuid
+import logging
+
+logger = logging.getLogger('django')
 
 
 class CheckoutAPIView(APIView):
@@ -35,10 +38,12 @@ class CheckoutAPIView(APIView):
             order.status = OrderStatus.o.value
             order.save()
             cart.delete()
+            logger.info("successfully added to cart")
             return Response({'success': True,
                              'message': "Successfully Placed Order",
                              'data': f"Order Address- {address}, Order Id- {order_id}"}, status=status.HTTP_201_CREATED)
         except Exception as e:
+            logger.exception(e)
             return Response({'success': False,
                              'message': "Something went wrong",
                              'data': str(e)}, status=status.HTTP_400_BAD_REQUEST)
@@ -66,6 +71,7 @@ class AddRatingsAPIView(APIView):
                              'message': "Successfully added ratings"}, status=status.HTTP_201_CREATED)
 
         except Exception as e:
+            logger.exception(e)
             return Response({'success': False,
                              'message': "Something went wrong",
                              'data': str(e)}, status=status.HTTP_400_BAD_REQUEST)

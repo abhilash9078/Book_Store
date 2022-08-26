@@ -4,6 +4,9 @@ from django.conf import settings
 
 
 class JWT:
+    """
+    class for generating token
+    """
     @staticmethod
     def encode(payload):
         payload.update({"exp": datetime.now()+timedelta(minutes=settings.JWT_EXP_TIME)})

@@ -7,6 +7,9 @@ from user.utils import Util
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
+    """
+    serializer class for user registration
+    """
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
     class Meta:
@@ -29,6 +32,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
 
 class UserProfileVerificationEmailSerializer(serializers.Serializer):
+    """
+    serializer class for profile verification of user
+    """
     email = serializers.EmailField(max_length=255)
 
     class Meta:
@@ -53,6 +59,9 @@ class UserProfileVerificationEmailSerializer(serializers.Serializer):
 
 
 class UserProfileVerificationSerializer(serializers.Serializer):
+    """
+    serializer class for profile verification
+    """
 
     def validate(self, attrs):
         try:
@@ -67,6 +76,9 @@ class UserProfileVerificationSerializer(serializers.Serializer):
 
 
 class UserLoginSerializer(serializers.ModelSerializer):
+    """
+    serializer class for login of user
+    """
     email = serializers.EmailField(max_length=255)
 
     class Meta:
@@ -75,6 +87,9 @@ class UserLoginSerializer(serializers.ModelSerializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    """
+    serializer class for profile view of user
+    """
     class Meta:
         model = User
         fields = ['id', 'email', 'username', 'mobile_no', 'is_verified', 'is_admin']

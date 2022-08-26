@@ -3,12 +3,18 @@ from .models import Book
 
 
 class AllBookListSerializer(serializers.ModelSerializer):
+    """
+    serializer class for getting all the book
+    """
     class Meta:
         model = Book
         fields = ['id', 'book_name', 'author', 'price', 'description', 'quantity_now', 'ratings']
 
 
 class BookSerializer(serializers.ModelSerializer):
+    """
+        serializer class for creating all the book
+    """
     class Meta:
         model = Book
         fields = ['id', 'book_name', 'author', 'price', 'original_quantity', 'description']
