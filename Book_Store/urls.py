@@ -41,7 +41,6 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('book/', include('book.urls')),
     path('cart/', include('cart.urls')),
-    path('q_cart/', include('rawquery_cart.urls')),
     path('order/', include('order.urls')),
     path('wishlist/', include('wishlist.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
